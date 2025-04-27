@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeMU Library Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+          background-color: #121212; /* Dark background */
+          color: #f8f8f8;
+          line-height: 1.6;
+          margin: 0;
+          padding: 0;
+        }
+
+        .project-label {
+            font-size: 16px;
+            margin: 20px 0 30px 30px;
+        }
+       
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.project-label {
+  font-size: 18px;
+  margin: 20px 0 30px 30px;
+  color: #e6a8b4; /* Light pink */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+h1 {
+  color:white;
+  margin: 20px 0 20px;
+  font-size: 50px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-align: center;
+}
+
+h3 {
+  color: #ab0e3d;
+  font-size: 24px;
+  margin-bottom: 50px;
+  font-weight: 400;
+  opacity: 0.9;
+  border-bottom: 1px solid #ab0e3d;
+}
+
+h4 {
+  color: #e6a8b4; /* Light pink */
+  letter-spacing: 2px;
+  font-size: 20px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.svg-icons li {
+      position: relative;
+      padding-left: 28px;
+      list-style-type: none;
+      margin-bottom: 15px;
+      color: #e08ca2;
+    }
+    
+    .svg-icons li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ab0e3d'%3E%3Cpath d='M12 2L4 12l8 10 8-10z'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+.project-details {
+  list-style-type: none;
+  padding-left: 0;
+  max-width: 900px;
+}
+
+.project-details li {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #fcfc; /* Brighter pink */
+  position: relative;
+  padding-left: 25px;
+}
+
+.project-details li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ab0e3d; /* Darker pink */
+  font-weight: bold;
+}
+
+.content-container {
+  margin-left: 30px;
+  padding: 30px;
+  border-radius: 12px;
+
+}
+
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  max-width: 500px;
+  color: #ab0e3d;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 40px;
+  max-width: 600px;
+  color: white;
+  opacity: 0.85;
+}
+
+.device-mockup {
+   width: 90%;
+   max-width: 800px;
+   margin: 50px auto;
+   display: flex;
+   border-radius: 25px;
+   overflow: hidden;
+   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+   border: none;
+   transition: transform 0.3s ease;
+   cursor: pointer; /* This indicates it's clickable */
+   position: relative; /* For proper z-index handling */
+   z-index: 1; /* Ensure it's above other elements */
+}
+
+.device-mockup:hover {
+   transform: translateY(-5px);
+}
+
+/* Section styling */
+section {
+   margin-bottom: 80px;
+}
+
+.image-container {
+   width: 100%;
+   height: 100%;
+   background-color: #191919;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 20px;
+   border-radius: 25px;
+   overflow: hidden;
+   position: relative; /* Important for child positioning */
+}
+
+/* For when you use an img tag */
+.coffee-cup-placeholder img {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   max-height: 300px;
+   pointer-events: auto; /* Ensures clicks pass through to the image */
+}
+
+/* For when you use a background image */
+.coffee-cup-placeholder {
+   width: 100%;
+   height: 250px;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: contain;
+   position: relative; /* For proper positioning */
+   z-index: 2; /* Make sure it's above the container */
+
+}
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.close-button {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+  
+
+    <div class="content-container">
+        
+        <h1>University Library Website</h1>
+        <h3>Role: UI/UX Designer & Front-End Developer (Collaboration with KeMU ICT Department)</h3>
+       
+          <ul class="svg-icons">
+          <li>Collaborated with the KeMU ICT Department to redesign the library website, focusing on user experience, accessibility, and responsive design using HTML, CSS, and JavaScript.</li>
+          <li>Designed a visually engaging homepage by selecting imagery, refining layout structure, and improving information hierarchy to guide users effectively.</li>
+          <li>Enhanced navigation and usability across the Resources and Links page, Services page, and footer, ensuring consistency and intuitive user flow.</li>
+          <li>Created the About page to clearly communicate the library’s mission, using user-centered design principles to improve readability and engagement.</li>
+        </ul>
+      </section>
+      
+    </div>
+
+    <div class="device-mockup">
+        <div class="image-container">
+            <!-- Empty div for your own image -->
+            <div class="coffee-cup-placeholder">
+              <img src="kemulibraryhomepage.png" alt="homepage">
+            </div>
+        </div>
+    </div>
+
+    <!-- Second device mockup (duplicate) -->
+    <div class="device-mockup">
+        <div class="image-container">
+            <!-- Empty div for your own image -->
+            <div class="coffee-cup-placeholder">
+              <img src="kemuaboutpage.png" alt="aboutpage">
+            </div>
+        </div>
+    </div>
+    <div class="device-mockup">
+      <div class="image-container">
+          <!-- Empty div for your own image -->
+          <div class="coffee-cup-placeholder">
+            <img src="Resourcespage.png" alt="services">
+          </div>
+      </div>
+  </div>
+  <div class="device-mockup">
+    <div class="image-container">
+        <!-- Empty div for your own image -->
+        <div class="coffee-cup-placeholder">
+          <img src="kemulibraryfooter.png" alt="Resourcespage">
+        </div>
+    </div>
+</div>
+<script>
+
+// Add this JavaScript to your page
+document.querySelectorAll('.device-mockup').forEach(item => {
+  item.addEventListener('click', event => {
+    const imgSrc = item.querySelector('img').src;
+    showLightbox(imgSrc);
+  });
+});
+
+function showLightbox(src) {
+  // Create modal elements
+  const modal = document.createElement('div');
+  modal.className = 'image-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <img src="${src}" alt="Enlarged view">
+    </div>
+  `;
+  
+  // Add modal to page
+  document.body.appendChild(modal);
+  
+  // Add event listener to close when clicking X or outside the image
+  modal.querySelector('.close-button').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+    }
+  });
+}
+</script>
+</body>
+
+</html>
