@@ -256,14 +256,14 @@ button:hover {
   display: block;
 }
 
-/* About image */
 .about-img-frame {  
-  border-radius: 50%;
+  border-radius: 0; /* or remove this line completely */
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
- /* width: 250px;
-  height: 250px;*/
   margin: 0 auto;
+
+  width: 250px;   /* give it a defined size */
+  height: 250px;  /* adjust as needed */
 }
 
 .about-img-frame img {  
