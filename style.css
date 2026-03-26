@@ -261,9 +261,8 @@ button:hover {
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
-
-  width: 250px;   /* give it a defined size */
-  height: 250px;  /* adjust as needed */
+  width: 700px;   /* give it a defined size */
+  height: 700px;  /* adjust as needed */
 }
 
 .about-img-frame img {  
@@ -321,13 +320,13 @@ button:hover {
   font-size: 18px;
   line-height: 28px;
   margin-bottom: 30px;
-   letter-spacing: 5px; 
+   letter-spacing: 3px; 
 }
 
 .about-text li {
   color: #bd8b96;
   font-size: 16px;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 }
 
 /* Service section */
