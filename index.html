@@ -4,22 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Website Portfolio</title>
   </head>
   <body>
-    <!-- Hero section start -->
 
+    <!-- ===== HERO SECTION ===== -->
     <div class="hero">
       <nav>
         <h2 class="logo">E<span>N</span></h2>
@@ -29,127 +20,146 @@
           <li><a href="#service">Projects</a></li>
           <li><a href="#contact-me">Contact Me</a></li>
         </ul>
-        
+        <!-- Social icons in nav (right side) -->
+        <div class="nav-social">
+          <a href="https://github.com/Enkirote"><i class="fab fa-github"></i></a>
+          <a href="https://ke.linkedin.com/in/everlyn-nkirote-158507213"><i class="fab fa-linkedin"></i></a>
+        </div>
       </nav>
-      <div class="content">
-        <h4>Hello, my name is</h4>
-        <h1>Everlyn <span>Nkirote</span></h1>
-        <h3 id="typing-text"></h3>
-        <a href="#service" class="btn">View My Work</a>
+
+      <!-- Hero inner card with text left, image right -->
+      <div class="hero-card">
+        <!-- Decorative scatter lines (background accents) -->
+        <span class="scatter s1"></span>
+        <span class="scatter s2"></span>
+        <span class="scatter s3"></span>
+        <span class="scatter s4"></span>
+        <span class="scatter s5"></span>
+        <span class="scatter s6"></span>
+        <span class="dot d1"></span>
+        <span class="dot d2"></span>
+
+        <!-- Left: text content -->
+        <div class="hero-text">
+          <h4>Hello, my name is</h4>
+          <h1>Everlyn <span>Nkirote</span></h1>
+          <h3>Front end developer and UI/UX designer</h3>
+          <a href="#service" class="btn">View My Work</a>
+        </div>
+
+        <!-- Right: profile image -->
+        <div class="hero-image">
+          <img src="profile.png" alt="Everlyn Nkirote" />
+        </div>
       </div>
     </div>
-<!----- About Section start ---->
-<section id="about" class="about">
-  <div class="main">
-      <div class="about-img-frame">  
-          <img src="profile.png" alt="Freepik afro woman" />
-      </div>
-      <div class="about-text">
-        <section id="about-me">
-          <h2>About Me</h2>
-          <h3>Developer:</h3>
-          <p>Junior UI/UX Designer & Front-End Developer</p>
-          <h3>Description:</h3>
-          <p>I am passionate about creating user-friendly and visually appealing web applications. With a Diploma in Business Information Technology,and a degree in designing responsive websites using HTML, CSS, and JavaScript. I enjoy combining design and technology to solve real-world problems and enhance user experiences.</p>
-          <h3>Education:</h3><p>
-          <ul>
-            
-            <li>Diploma in Business Information Technology</li>
-            <li>Degree in  Business Information Technology </li>
-          </ul></p>
-          <h3>Skills:</h3>
-          <p>
-          <ul>
-            <li>Designing and developing Websites</li>
-            <li>HTML, CSS, JavaScript, Flutter(intermediate)</li>
-            <li>Responsive design and UI/UX principles</li>
-            <li>Figma, Wordpress</li>
-          </ul>
-        </p>
-        </section>
-      </div>
-  </div>
-</section>
 
-    <!------- service section start --->
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="about">
+      <!-- Card-style about box (imitating "About Author" reference) -->
+      <div class="about-card">
+        <!-- Avatar on top -->
+        <div class="about-avatar">
+          <img src="profile.png" alt="Everlyn Nkirote" />
+        </div>
+
+        <!-- Card body: name, typing role, description -->
+        <div class="about-card-body">
+          <h2>About Me</h2>
+          <p class="about-tagline"><span id="typing-text"></span></p>
+          <p class="about-description">
+            I am passionate about creating user-friendly and visually appealing web applications.
+            With a Diploma in Business Information Technology, and a degree in Business IT,
+            I enjoy combining design and technology to solve real-world problems and enhance user experiences.
+          </p>
+          <p class="about-description">
+            Skilled in HTML, CSS, JavaScript, and Flutter, I bring ideas to life through
+            responsive design and thoughtful UI/UX principles — always aiming for both beauty and function.
+          </p>
+        </div>
+
+        <!-- Card footer: expertise tags -->
+        <div class="about-card-footer">
+          <span class="footer-label">Expertise In:</span>
+          <span class="tag"><i class="dot-icon"></i>Web Development</span>
+          <span class="tag"><i class="dot-icon"></i>UI/UX Design</span>
+          <span class="tag"><i class="dot-icon"></i>Flutter</span>
+          <span class="tag"><i class="dot-icon"></i>Figma</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS SECTION ===== -->
     <div id="service" class="service">
-   
       <div class="title">
         <h2>Projects</h2>
       </div>
-  <div class="box">
-    <div class="card">
-      <div class="image">
-        <img src="kemulibraryhomepage.png" alt="Project Image">
+      <div class="box">
+        <div class="card">
+          <div class="image">
+            <img src="kemulibraryhomepage.png" alt="KeMU Library Project">
+          </div>
+          <h5>KeMU Library Website</h5>
+          <p class="title">Library Website</p>
+          <div class="pra">
+            <p style="text-align: center">
+              <a class="button" href="LibraryWebsite.html">View More</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image">
+            <img src="Responsive Admin Dasboard Mockup.png" alt="Figma Projects">
+          </div>
+          <h5>Figma Projects</h5>
+          <p class="title">Mobile and Web Page Mockups</p>
+          <div class="pra">
+            <p style="text-align: center">
+              <a class="button" href="FigmaProject.html">View More</a>
+            </p>
+          </div>
+        </div>
       </div>
-     
-      <h5>KeMU Library Website</h5>
-      <p class="title">Library Website</p>
-      <div class="pra">
-       
-        <p style="text-align: center">
-          <a class="button" href="LibraryWebsite.html">View More</a>
-        </p>
-      </div> 
     </div>
 
-      <div class="card">
-      <div class="image">
-        <img src="Responsive Admin Dasboard Mockup.png" alt="Project Image">
+    <!-- ===== CONTACT SECTION ===== -->
+    <div id="contact-me" class="contact-me">
+      <div class="container">
+        <div class="row">
+          <div class="contact-left">
+            <h1 class="sub-title">Contact Me</h1>
+            <p><i class="fa-solid fa-paper-plane"></i>everlynkirote@gmail.com</p>
+            <p><i class="fa-solid fa-square-phone"></i>+2547-0620-1382</p>
+          </div>
+        </div>
       </div>
-     
-      <h5>Figma Projects</h5>
-      <p class="title">Mobile and Web Page Mockups</p>
-      <div class="pra">
-       
-        <p style="text-align: center">
-          <a class="button" href="FigmaProject.html">View More</a>
-        </p>
-      </div> 
-    </div>
     </div>
 
-    <!--  Contact me start ------ -->
-      <div id="contact-me" class="contact-me">
-        <div class="container">
-            <div class="row">
-                <div class="contact-left">
-                    <h1 class="sub-title">Contact Me</h1>
-                    <p><i class="fa-solid fa-paper-plane"></i>everlynkirote@gmail.com</p>
-                    <p><i class="fa-solid fa-square-phone"></i>+2547-0620-1382</p>
-                </div>
-            </div>
-    </div>
-</div>
-    <!--------- footer start ------->
+    <!-- ===== FOOTER ===== -->
     <footer>
       <p>Connect with Me</p>
-      
       <div class="social">
-        
         <a href="https://github.com/Enkirote"><i class="fab fa-github"></i></a>
         <a href="https://ke.linkedin.com/in/everlyn-nkirote-158507213"><i class="fab fa-linkedin"></i></a>
       </div>
       <p class="end">copyright by Everlyn 2026</p>
     </footer>
-      
+
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-  const text = "Front end developer and UI/UX designer";
-  const typingElement = document.getElementById('typing-text');
-  let i = 0;
-  
-  function typeWriter() {
-    if (i < text.length) {
-      typingElement.textContent += text.charAt(i);
-      i++;
-      setTimeout(typeWriter, 100); 
-    }
-  }
-  
-  typeWriter();
-});
+      /* Typing animation for About Me tagline */
+      document.addEventListener('DOMContentLoaded', function () {
+        const text = "Junior UI/UX Designer & Front-End Developer";
+        const el = document.getElementById('typing-text');
+        let i = 0;
+        function typeWriter() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i++);
+            setTimeout(typeWriter, 80);
+          }
+        }
+        typeWriter();
+      });
     </script>
   </body>
-
 </html>
