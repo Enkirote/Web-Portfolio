@@ -1,332 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figma Projects Mockups</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Figma Projects — Everlyn Nkirote</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+        --pink: #EF68AC;
+      --dark-bg: #0e0e0e;
+      --card-bg: #161616;
+      --border: #2a2a2a;
+      --text-muted: #c0868f;
+    }
 
-        body {
-          background-color: #121212; /* Dark background */
-          color: #f8f8f8;
-          line-height: 1.6;
-          margin: 0;
-          padding: 0;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .project-label {
-            font-size: 16px;
-            margin: 20px 0 30px 30px;
-        }
-       
+    body {
+      background-color: var(--dark-bg);
+      color: #f0f0f0;
+      font-family: 'Josefin Sans', sans-serif;
+      line-height: 1.6;
+    }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
+    /* ── Back nav ── */
+    .top-nav {
+      padding: 24px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { color: white; font-size: 26px; font-weight: 700; text-decoration: none; }
+    .logo span { color: var(--pink); }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--pink); }
 
-.project-label {
-  font-size: 18px;
-  margin: 20px 0 30px 30px;
-  color: #e6a8b4; /* Light pink */
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-h1 {
-  color:white;
-  margin: 20px 0 20px;
-  font-size: 50px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  text-align: center;
-}
-h2{
-    color: white;
-    text-align: center;
-}
-h3 {
-  color: #f7a1bb;
-  font-size: 24px;
-  margin-bottom: 50px;
-  font-weight: 400;
-  opacity: 0.9;
-  border-bottom: 1px solid white;
-
-}
-
-h4 {
-  color: #e6a8b4; 
-  letter-spacing: 2px;
-  font-size: 20px;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  text-align: center;
-}
-.svg-icons li {
-      position: relative;
-      padding-left: 28px;
-      list-style-type: none;
-      margin-bottom: 15px;
+    /* ── Header ── */
+    .project-header {
+      max-width: 860px;
+      margin: 70px auto 0;
+      padding: 0 6%;
+      text-align: center;
+    }
+    .project-label {
+      display: inline-block;
+      color: var(--pink);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 18px;
+      padding: 6px 16px;
+      border: 1px solid rgba(255,45,120,0.3);
+      border-radius: 20px;
+    }
+    .project-header h1 {
       color: white;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 18px;
     }
-    
-    .svg-icons li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 6px;
-      width: 16px;
-      height: 16px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ab0e3d'%3E%3Cpath d='M12 2L4 12l8 10 8-10z'/%3E%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
+    .project-header .subtitle {
+      color: #888;
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto 60px;
     }
-.project-details {
-  list-style-type: none;
-  padding-left: 0;
-  max-width: 900px;
-}
 
-.project-details li {
-  margin-bottom: 20px;
-  font-size: 16px;
-  line-height: 1.8;
-  color: #fcfc; /* Brighter pink */
-  position: relative;
-  padding-left: 25px;
-  margin-bottom: 20px;
-}
+    /* ── Project blocks ── */
+    .projects {
+      max-width: 900px;
+      margin: 0 auto 100px;
+      padding: 0 4%;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
 
-.project-details li:before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #ab0e3d; /* Darker pink */
-  font-weight: bold;
-}
+    .project-block {}
 
-.content-container {
-  margin-left: 30px;
-  padding: 30px;
-  border-radius: 12px;
+    /* Section heading */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .section-heading h3 {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .section-heading .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-heading .tag {
+      color: var(--pink);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
 
-}
+    /* Video container — fills the frame properly */
+    .video-frame {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .video-frame:hover {
+      transform: translateY(-4px);
 
-.title {
-  font-size: 50px;
-  font-weight: bold;
-  line-height: 1.1;
-  margin-bottom: 20px;
-  max-width: 500px;
-  color: #ab0e3d;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
+    }
+    .video-frame video {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 520px;
+      object-fit: contain;
+      background: #000;
+    }
 
-.subtitle {
-  font-size: 18px;
-  margin-bottom: 40px;
-  max-width: 600px;
-  color: white;
-  opacity: 0.85;
-}
-
-.device-mockup {
-   width: 90%;
-   max-width: 800px;
-   margin: 50px auto;
-   display: flex;
-   border-radius: 25px;
-   overflow: hidden;
-   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
-   border: none;
-   transition: transform 0.3s ease;
-   cursor: pointer; /* This indicates it's clickable */
-   position: relative; /* For proper z-index handling */
-   z-index: 1; /* Ensure it's above other elements */
-}
-
-.device-mockup:hover {
-   transform: translateY(-5px);
-}
-
-/* Section styling */
-section {
-   margin-bottom: 80px;
-}
-
-.image-container {
-   width: 100%;
-   height: 100%;
-   background-color: #191919;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 20px;
-   border-radius: 25px;
-   overflow: hidden;
-   position: relative; /* Important for child positioning */
-}
-
-
-.coffee-cup-placeholder img {
-   width: 100%;
-   height: 100%;
-   object-fit: contain;
-   max-height: 300px;
-   pointer-events: auto; /* Ensures clicks pass through to the image */
-}
-
-
-.coffee-cup-placeholder {
-   width: 100%;
-   height: 250px;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: contain;
-   position: relative; /* For proper positioning */
-   z-index: 2; /* Make sure it's above the container */
-
-}
-.image-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  position: relative;
-  max-width: 90%;
-  max-height: 90%;
-}
-
-.modal-content img {
-  width: 100%;
-  height: auto;
-  max-height: 90vh;
-  object-fit: contain;
-}
-
-.close-button {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  color: white;
-  font-size: 30px;
-  cursor: pointer;
-}
-</style>
+    /* Description under each video */
+    .project-desc {
+      margin-top: 16px;
+      color: #888;
+      font-size: 14px;
+      line-height: 1.7;
+      padding: 0 4px;
+    }
+  </style>
 </head>
 <body>
-  
 
-    <div class="content-container">
-        
-        <h1>Figma Mockups</h1>
-        <h2>Web and Mobile Application Design Mockups</h2>
-        <h3>Admin Dashboard Mock up</h3>
+  <!-- Nav -->
+  <nav class="top-nav">
+    <a href="index.html" class="logo">E<span>N</span></a>
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+  </nav>
 
-    </div>
+  <!-- Header -->
+  <header class="project-header">
+    <span class="project-label">UI/UX · Figma</span>
+    <h1>Figma Mockups</h1>
+    <p class="subtitle">Web and mobile application design mockups created in Figma — exploring real-world UI patterns.</p>
+  </header>
 
-    <div class="device-mockup">
-        <div class="image-container">
-             <video width="320" height="240" controls
-                
-               <source src="Admin Dasboard Mockup.mp4" type="video/mp4">
-  
-                 Your browser does not support the video tag.
-                </video>
-            
-        </div>
-    </div>
+  <!-- Projects -->
+  <div class="projects">
 
-     <div class="content-container">
-    
-        <h3>Gmail Login Pge Mockup</h3>
-
-    </div>
-    <div class="device-mockup">
-        <div class="image-container">
-        
-           <video width="320" height="240" controls
-                
-               <source src="Gmail Login Mockup.mp4" type="video/mp4">
-  
-                 Your browser does not support the video tag.
-                </video>
-           
-        </div>
-    </div>
-
-    
-     <div class="content-container">
-    
-        <h3>Mpesa Splash Screen</h3>
-
-    </div>
-    <div class="device-mockup">
-      <div class="image-container">
-        <video width="320" height="240" controls
-                
-               <source src="Mpesa Splash Screen Mockup.mp4" type="video/mp4">
-  
-                 Your browser does not support the video tag.
-                </video>
-
+    <!-- Admin Dashboard -->
+    <div class="project-block">
+      <div class="section-heading">
+        <h3>Admin Dashboard</h3>
+        <!--<div class="line"></div>-->
+        <span class="tag">Web · Desktop</span>
       </div>
-  </div>
-  
-<script>
-
-
-document.querySelectorAll('.device-mockup').forEach(item => {
-  item.addEventListener('click', event => {
-    const imgSrc = item.querySelector('img').src;
-    showLightbox(imgSrc);
-  });
-});
-
-function showLightbox(src) {
-  // Create modal elements
-  const modal = document.createElement('div');
-  modal.className = 'image-modal';
-  modal.innerHTML = `
-    <div class="modal-content">
-      <span class="close-button">&times;</span>
-      <img src="${src}" alt="Enlarged view">
+      <div class="video-frame">
+        <video controls preload="metadata">
+          <source src="Admin Dasboard Mockup.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="project-desc">A responsive admin dashboard mockup featuring data tables, charts, and navigation panels — designed for clarity and ease of use.</p>
     </div>
-  `;
-  
-  // Add modal to page
-  document.body.appendChild(modal);
-  
-  // Add event listener to close when clicking X or outside the image
-  modal.querySelector('.close-button').addEventListener('click', () => {
-    document.body.removeChild(modal);
-  });
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      document.body.removeChild(modal);
-    }
-  });
-}
-</script>
-</body>
 
+    <!-- Gmail Login -->
+    <div class="project-block">
+      <div class="section-heading">
+        <h3>Gmail Login Page</h3>
+       <!-- <div class="line"></div>-->
+        <span class="tag">Web · Desktop</span>
+      </div>
+      <div class="video-frame">
+        <video controls preload="metadata">
+          <source src="Gmail Login Mockup.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="project-desc">A redesigned Gmail login page mockup focusing on clean typography, intuitive form layout, and a modern visual hierarchy.</p>
+    </div>
+
+    <!-- Mpesa Splash Screen -->
+    <div class="project-block">
+      <div class="section-heading">
+        <h3>M-Pesa Splash Screen</h3>
+       <!--<div class="line"></div>-->
+        <span class="tag">Mobile · Android</span>
+      </div>
+      <div class="video-frame">
+        <video controls preload="metadata">
+          <source src="Mpesa Splash Screen Mockup.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="project-desc">A mobile splash screen concept for M-Pesa, exploring brand-consistent motion and a polished entry experience for the app.</p>
+    </div>
+
+  </div>
+
+</body>
 </html>
