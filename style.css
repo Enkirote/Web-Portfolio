@@ -89,6 +89,18 @@ nav ul li a:hover { color: white; background: rgba(255,255,255,0.06); }
   z-index: 0;
 }
 
+.hero-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,45,120,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
 .hero-text { max-width: 52%; z-index: 2; }
 
 .hero-text h4 {
@@ -162,31 +174,6 @@ nav ul li a:hover { color: white; background: rgba(255,255,255,0.06); }
   50%       { transform: translateY(-8px); }
 }
 
-/* Decorative scatter lines */
-.scatter {
-  position: absolute;
-  display: block;
-  background: var(--pink);
-  border-radius: 4px;
-  opacity: 0.4;
-  z-index: 0;
-}
-.s1 { width: 30px; height: 3px; top: 18%; left: 52%; transform: rotate(-40deg); }
-.s2 { width: 22px; height: 3px; top: 35%; right: 8%; transform: rotate(30deg); }
-.s3 { width: 28px; height: 3px; bottom: 28%; left: 50%; transform: rotate(-55deg); }
-.s4 { width: 20px; height: 3px; bottom: 18%; right: 12%; transform: rotate(20deg); }
-.s5 { width: 35px; height: 3px; top: 60%; left: 55%; transform: rotate(60deg); }
-.s6 { width: 18px; height: 3px; top: 25%; right: 20%; transform: rotate(-30deg); }
-
-.dot {
-  position: absolute;
-  border-radius: 50%;
-  background: var(--pink);
-  opacity: 0.25;
-  z-index: 0;
-}
-.d1 { width: 14px; height: 14px; top: 20%; right: 14%; }
-.d2 { width: 10px; height: 10px; bottom: 30%; right: 22%; }
 
 /* CTA button */
 .btn {
@@ -357,7 +344,7 @@ h5 { color: white; font-size: 20px; margin-bottom: 8px; font-weight: 700; }
 .pra { margin-top: auto; padding-top: 28px; }
 
 .card .button {
-  background-color: var(--pink);
+  background-color: #ec1681;
   color: white;
   text-decoration: none;
   border: 2px solid transparent;
@@ -371,7 +358,6 @@ h5 { color: white; font-size: 20px; margin-bottom: 8px; font-weight: 700; }
 
 }
 .card .button:hover { background-color: transparent; border-color: var(--pink); color: var(--pink); }
-
 /* ===== CONTACT ===== */
 .contact-me {
   width: 100%;
