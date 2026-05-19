@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
-        --pink: #f471b3;
+      --pink: #ff2d78;
       --dark-bg: #0e0e0e;
       --card-bg: #161616;
       --border: #2a2a2a;
@@ -119,7 +119,153 @@
       font-weight: 600;
     }
 
-    /* Video container — fills the frame properly */
+    /* ── Activity Bridge clickable card ── */
+    .ab-card {
+      display: block;
+      text-decoration: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .ab-card:hover {
+      border-color: rgba(255,45,120,0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(255,45,120,0.1);
+    }
+    .ab-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 320px;
+    }
+    .ab-info {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .ab-info-top {}
+    .ab-chip {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--pink);
+      border: 1px solid rgba(255,45,120,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+    .ab-info h2 {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .ab-info p {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .ab-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .ab-tag {
+      font-size: 10px;
+      color: #555;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 4px 10px;
+      letter-spacing: 0.5px;
+    }
+    .ab-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pink);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 28px;
+      transition: gap 0.2s;
+    }
+    .ab-card:hover .ab-cta { gap: 12px; }
+
+    /* Visual side of card */
+    .ab-visual {
+      background: linear-gradient(135deg, #111 0%, #0a0a0a 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px solid var(--border);
+    }
+    .ab-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(255,45,120,0.15) 0%, transparent 65%);
+    }
+    /* Mini phone mockups on the card */
+    .ab-phones {
+      position: relative;
+      width: 200px;
+      height: 240px;
+    }
+    .ab-phone {
+      position: absolute;
+      width: 110px;
+      height: 190px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      overflow: hidden;
+      padding: 12px 8px 8px;
+    }
+    .ab-phone-notch {
+      width: 30px; height: 4px;
+      background: #111;
+      border-radius: 4px;
+      margin: 0 auto 10px;
+    }
+    .ab-phone-bar { height: 6px; background: #252525; border-radius: 3px; margin-bottom: 5px; }
+    .ab-phone-bar.accent { background: rgba(255,45,120,0.25); }
+    .ab-phone-bar.w60 { width: 60%; }
+    .ab-phone-bar.w40 { width: 40%; }
+    .ab-phone.main {
+      right: 10px; top: 20px; z-index: 2;
+      box-shadow: -6px 8px 30px rgba(0,0,0,0.5);
+    }
+    .ab-phone.back {
+      left: 10px; top: 40px; z-index: 1;
+      transform: rotate(-6deg);
+      opacity: 0.6;
+    }
+    /* floating label badges on card */
+    .ab-badge {
+      position: absolute;
+      background: rgba(22,22,22,0.9);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 9px;
+      color: #888;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+    }
+    .ab-badge.top { top: 20px; left: 20px; color: var(--pink); border-color: rgba(255,45,120,0.25); }
+    .ab-badge.bottom { bottom: 20px; right: 20px; }
+
+    /* Video container */
     .video-frame {
       width: 100%;
       background: var(--card-bg);
@@ -128,10 +274,7 @@
       overflow: hidden;
       transition: transform 0.3s;
     }
-    .video-frame:hover {
-      transform: translateY(-4px);
-
-    }
+    .video-frame:hover { transform: translateY(-4px); }
     .video-frame video {
       width: 100%;
       height: auto;
@@ -141,13 +284,63 @@
       background: #000;
     }
 
-    /* Description under each video */
     .project-desc {
       margin-top: 16px;
       color: #888;
       font-size: 14px;
       line-height: 1.7;
       padding: 0 4px;
+    }
+
+    /* Figma button */
+    .figma-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid rgba(255,45,120,0.4);
+      color: var(--pink);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 11px 26px;
+      border-radius: 30px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .figma-btn:hover { background: rgba(255,45,120,0.08); }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0 0;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-inner { position: relative; max-width: 92vw; max-height: 90vh; }
+    .lightbox-inner img { width: 100%; height: auto; max-height: 88vh; object-fit: contain; border-radius: 12px; }
+    .lightbox-close {
+      position: absolute; top: -40px; right: 0;
+      color: white; font-size: 28px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s;
+    }
+    .lightbox-close:hover { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .ab-card-inner { grid-template-columns: 1fr; }
+      .ab-visual { min-height: 200px; border-left: none; border-top: 1px solid var(--border); }
     }
   </style>
 </head>
@@ -168,13 +361,14 @@
 
   <!-- Projects -->
   <div class="projects">
-<!-- ── Activity Bridge — clickable case study card ── -->
+
+    <!-- ── Activity Bridge — clickable case study card ── -->
     <div class="project-block">
       <div class="section-heading">
         <h3>Activity Bridge</h3>
         <span class="tag">UI/UX · Figma · Mobile & Web</span>
       </div>
- 
+
       <a href="activity-bridge.html" class="ab-card">
         <div class="ab-card-inner">
           <!-- Left: info -->
@@ -196,7 +390,7 @@
               View Case Study <i class="fa-solid fa-arrow-right"></i>
             </div>
           </div>
- 
+
           <!-- Right: visual -->
           <div class="ab-visual">
             <div class="ab-badge top"><i class="fa-brands fa-figma"></i> &nbsp;Figma Prototype</div>
@@ -227,14 +421,14 @@
         </div>
       </a>
     </div>
- 
+
     <div class="section-divider"></div>
- 
+
     <!-- Admin Dashboard -->
     <div class="project-block">
       <div class="section-heading">
         <h3>Admin Dashboard</h3>
-        <!--<div class="line"></div>-->
+        <div class="line"></div>
         <span class="tag">Web · Desktop</span>
       </div>
       <div class="video-frame">
@@ -243,14 +437,14 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <p class="project-desc">A responsive admin dashboard mockup featuring navigation panels and an interactive checkbox, designed for clarity and ease of use.</p>
+      <p class="project-desc">A responsive admin dashboard mockup featuring data tables, charts, and navigation panels — designed for clarity and ease of use.</p>
     </div>
 
     <!-- Gmail Login -->
     <div class="project-block">
       <div class="section-heading">
         <h3>Gmail Login Page</h3>
-       <!-- <div class="line"></div>-->
+        <div class="line"></div>
         <span class="tag">Web · Desktop</span>
       </div>
       <div class="video-frame">
@@ -259,14 +453,14 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <p class="project-desc">A mockup of the Gmail login page focusing on clean typography, intuitive form layout, and a modern visual hierarchy.</p>
+      <p class="project-desc">A redesigned Gmail login page mockup focusing on clean typography, intuitive form layout, and a modern visual hierarchy.</p>
     </div>
 
     <!-- Mpesa Splash Screen -->
     <div class="project-block">
       <div class="section-heading">
         <h3>M-Pesa Splash Screen</h3>
-       <div class="line"></div>
+        <div class="line"></div>
         <span class="tag">Mobile · Android</span>
       </div>
       <div class="video-frame">
@@ -275,10 +469,33 @@
           Your browser does not support the video tag.
         </video>
       </div>
-      <p class="project-desc">An M-Pesa mobile splash screen, exploring brand-consistent motion and a polished entry experience for the app.</p>
+      <p class="project-desc">A mobile splash screen concept for M-Pesa, exploring brand-consistent motion and a polished entry experience for the app.</p>
     </div>
 
   </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-inner">
+      <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+      <img id="lightbox-img" src="" alt="Enlarged view" />
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(frame) {
+      const img = frame.querySelector('img');
+      if (!img) return;
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+    function closeLightbox(e) {
+      if (!e || e.target === document.getElementById('lightbox')) {
+        document.getElementById('lightbox').classList.remove('active');
+      }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
 
 </body>
 </html>
