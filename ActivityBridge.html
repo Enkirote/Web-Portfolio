@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activity Bridge — Case Study</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --pink: #ff2d78;
+      --pink-dim: rgba(255,45,120,0.12);
+      --dark-bg: #0e0e0e;
+      --card-bg: #161616;
+      --border: #2a2a2a;
+      --text-muted: #888;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--dark-bg);
+      color: #f0f0f0;
+      font-family: 'Josefin Sans', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .top-nav {
+      padding: 24px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .logo { color: white; font-size: 26px; font-weight: 700; text-decoration: none; }
+    .logo span { color: var(--pink); }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #aaa; text-decoration: none; font-size: 14px;
+      font-weight: 500; letter-spacing: 0.5px; transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--pink); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 100px 8% 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-label {
+      display: inline-block;
+      color: var(--pink);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding: 6px 16px;
+      border: 1px solid rgba(255,45,120,0.3);
+      border-radius: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(34px, 4.5vw, 60px);
+      font-weight: 700;
+      color: white;
+      letter-spacing: -1.5px;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--pink); font-style: normal; }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 420px;
+      margin-bottom: 36px;
+    }
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .meta-item { border-left: 2px solid var(--pink); padding-left: 14px; }
+    .meta-item .label { font-size: 10px; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+    .meta-item .value { font-size: 14px; color: #ccc; font-weight: 500; }
+
+    /* Hero right — phone mockup area */
+    .hero-visual {
+      position: relative;
+      height: 460px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-card {
+      width: 220px;
+      height: 380px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      position: absolute;
+      overflow: hidden;
+      transition: transform 0.4s ease;
+    }
+    .phone-card:hover { transform: translateY(-8px) scale(1.02); }
+    .phone-card.main { z-index: 3; left: 50%; transform: translateX(-50%); }
+    .phone-card.main:hover { transform: translateX(-50%) translateY(-8px) scale(1.02); }
+    .phone-card.left { left: 4%; z-index: 2; transform: rotate(-8deg) translateY(20px); opacity: 0.7; }
+    .phone-card.left:hover { transform: rotate(-6deg) translateY(12px); opacity: 0.9; }
+    .phone-card.right { right: 4%; z-index: 2; transform: rotate(8deg) translateY(20px); opacity: 0.7; }
+    .phone-card.right:hover { transform: rotate(6deg) translateY(12px); opacity: 0.9; }
+    .phone-screen {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      padding: 24px 16px 16px;
+      gap: 8px;
+    }
+    .phone-notch {
+      width: 60px; height: 8px;
+      background: #111;
+      border-radius: 10px;
+      margin: 0 auto 16px;
+    }
+    /* Screen content variations */
+    .screen-onboard .big-icon { font-size: 42px; text-align: center; margin-bottom: 12px; }
+    .screen-onboard h4 { font-size: 14px; font-weight: 700; color: white; text-align: center; margin-bottom: 6px; }
+    .screen-onboard p { font-size: 10px; color: #666; text-align: center; }
+    .screen-onboard .cta-pill {
+      margin-top: auto;
+      background: var(--pink);
+      border-radius: 20px;
+      text-align: center;
+      padding: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .screen-discover .search-bar {
+      background: #1f1f1f;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 10px;
+      color: #555;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .activity-card-mini {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .act-icon { font-size: 20px; }
+    .act-info .act-name { font-size: 10px; font-weight: 600; color: white; }
+    .act-info .act-sub { font-size: 9px; color: #555; }
+    .act-tag {
+      margin-left: auto;
+      font-size: 8px;
+      padding: 3px 7px;
+      border-radius: 10px;
+      background: var(--pink-dim);
+      color: var(--pink);
+    }
+
+    .screen-enroll .step-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+    }
+    .step-dot {
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; flex-shrink: 0;
+    }
+    .step-dot.done { background: var(--pink); color: white; }
+    .step-dot.active { border: 2px solid var(--pink); color: var(--pink); }
+    .step-dot.todo { border: 1px solid #333; color: #444; }
+    .step-label { font-size: 9px; color: #888; }
+    .enroll-form {
+      background: #1a1a1a;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 6px;
+    }
+    .form-field { height: 20px; background: #252525; border-radius: 6px; margin-bottom: 6px; }
+    .enroll-btn {
+      width: 100%; padding: 8px;
+      background: var(--pink);
+      border-radius: 16px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
+      margin-top: 4px;
+    }
+
+    /* glow behind main phone */
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(255,45,120,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── SECTION SHARED ── */
+    .section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 70px 6%;
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 36px;
+    }
+    .section-label h2 {
+      font-size: 22px; font-weight: 700; color: white; white-space: nowrap;
+    }
+    .section-label .line { flex: 1; height: 1px; background: var(--border); }
+    .section-label .tag {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--pink); font-weight: 600; white-space: nowrap;
+    }
+
+    /* ── OVERVIEW PILLS ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .overview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .overview-card:hover { border-color: rgba(255,45,120,0.35); transform: translateY(-4px); }
+    .overview-card .ov-icon { font-size: 28px; margin-bottom: 14px; }
+    .overview-card h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .overview-card p { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── USER FLOW ── */
+    .flow-container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      overflow-x: auto;
+    }
+    .flow-diagram {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      min-width: 700px;
+    }
+    .flow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+    .flow-col-title {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--pink);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .flow-node {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 10px;
+      color: #ccc;
+      text-align: center;
+      width: 120px;
+      transition: border-color 0.2s;
+    }
+    .flow-node:hover { border-color: var(--pink); }
+    .flow-node.pink-node {
+      background: var(--pink-dim);
+      border-color: rgba(255,45,120,0.4);
+      color: var(--pink);
+      font-weight: 600;
+    }
+    .flow-node.diamond {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      background: rgba(255,200,0,0.1);
+      border: none;
+      border-radius: 0;
+      color: #f0c040;
+      font-size: 9px;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      padding-top: 28px;
+      color: #444;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .flow-connector {
+      width: 24px;
+      height: 1px;
+      background: #333;
+      flex-shrink: 0;
+      margin-top: 32px;
+    }
+
+    /* ── WIREFRAMES GRID ── */
+    .wireframes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .wireframe-thumb {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      aspect-ratio: 9/16;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .wireframe-thumb:hover { border-color: rgba(255,45,120,0.4); transform: translateY(-4px); }
+    .wireframe-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      padding: 10px 8px;
+      gap: 5px;
+    }
+    .wf-bar { border-radius: 4px; background: #1f1f1f; }
+    .wf-bar.tall { flex: 1; }
+    .wf-bar.chat-bubble {
+      background: var(--pink-dim);
+      border-radius: 8px 8px 8px 2px;
+      padding: 6px;
+    }
+    .wf-bar.chat-bubble.right {
+      background: rgba(30,30,30,1);
+      border-radius: 8px 8px 2px 8px;
+      align-self: flex-end;
+      width: 70%;
+    }
+    .wf-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(14,14,14,0.95));
+      padding: 20px 10px 10px;
+      font-size: 9px;
+      color: #888;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    /* add some more rows of wireframe frames */
+    .wireframes-grid-small {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .wireframe-thumb-sm {
+      background: var(--card-bg);
+      border: 1px solid #222;
+      border-radius: 8px;
+      aspect-ratio: 9/16;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .wireframe-thumb-sm:hover { border-color: rgba(255,45,120,0.3); }
+    .wf-sm-bar { height: 4px; background: #1f1f1f; border-radius: 2px; }
+    .wf-sm-bar.accent { background: rgba(255,45,120,0.25); }
+    .wf-sm-bar.dark { background: #111; flex: 1; }
+
+    /* ── FIGMA CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 60px 6% 100px;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h3 {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 14px;
+    }
+    .cta-section p { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
+    .figma-btn-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--pink);
+      color: white;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 40px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .figma-btn-large:hover { opacity: 0.88; transform: translateY(-2px); }
+    .figma-btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--pink);
+      border: 1px solid rgba(255,45,120,0.4);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 40px;
+      margin-left: 16px;
+      transition: background 0.2s;
+    }
+    .figma-btn-outline:hover { background: var(--pink-dim); }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 60px 5% 50px; }
+      .hero-visual { height: 300px; }
+      .phone-card { width: 150px; height: 260px; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .wireframes-grid { grid-template-columns: repeat(2, 1fr); }
+      .wireframes-grid-small { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="top-nav">
+    <a href="figma-projects.html" class="logo">E<span>N</span></a>
+    <a href="figma-projects.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Figma Projects</a>
+  </nav>
+
+  <!-- Hero -->
+  <section>
+    <div class="hero">
+      <div class="hero-text">
+        <span class="hero-label">UI/UX · Figma · Mobile & Web</span>
+        <h1>Activity<br><em>Bridge</em></h1>
+        <p>A platform connecting families with quality after-school activities — designed end-to-end in Figma, covering onboarding, discovery, enrollment, and provider dashboards.</p>
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="label">Role</div>
+            <div class="value">Product Design, UI/UX</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Platform</div>
+            <div class="value">Mobile & Web</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Tool</div>
+            <div class="value">Figma</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Status</div>
+            <div class="value">Case Study</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <!-- Left phone — Discovery -->
+        <div class="phone-card left">
+          <div class="phone-screen screen-discover">
+            <div class="phone-notch"></div>
+            <div class="search-bar"><i class="fa-solid fa-magnifying-glass" style="font-size:9px;color:#555"></i> Search activities...</div>
+            <div class="activity-card-mini"><span class="act-icon">🎨</span><div class="act-info"><div class="act-name">Art Class</div><div class="act-sub">Ages 6–12 · Nairobi</div></div><span class="act-tag">New</span></div>
+            <div class="activity-card-mini"><span class="act-icon">⚽</span><div class="act-info"><div class="act-name">Football Academy</div><div class="act-sub">Ages 8–14 · Karen</div></div><span class="act-tag">Popular</span></div>
+            <div class="activity-card-mini"><span class="act-icon">🎵</span><div class="act-info"><div class="act-name">Music Lessons</div><div class="act-sub">Ages 5–10 · Westlands</div></div></div>
+          </div>
+        </div>
+
+        <!-- Main phone — Onboarding -->
+        <div class="phone-card main">
+          <div class="phone-screen screen-onboard">
+            <div class="phone-notch"></div>
+            <div class="big-icon">🧒</div>
+            <h4>Find the perfect<br>activity for your child</h4>
+            <p style="font-size:10px;color:#555;text-align:center;margin-top:6px;">Connect with trusted providers near you</p>
+            <div style="flex:1"></div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+              <div class="cta-pill">Get Started</div>
+              <div style="text-align:center;font-size:9px;color:#444">Already have an account? <span style="color:var(--pink)">Sign in</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right phone — Enrollment -->
+        <div class="phone-card right">
+          <div class="phone-screen screen-enroll">
+            <div class="phone-notch"></div>
+            <div style="font-size:11px;font-weight:700;color:white;margin-bottom:10px">Enroll Now</div>
+            <div class="step-row"><div class="step-dot done"><i class="fa-solid fa-check" style="font-size:7px"></i></div><div class="step-label">Choose Activity</div></div>
+            <div class="step-row"><div class="step-dot done"><i class="fa-solid fa-check" style="font-size:7px"></i></div><div class="step-label">Child Details</div></div>
+            <div class="step-row"><div class="step-dot active">3</div><div class="step-label" style="color:white">Payment</div></div>
+            <div class="step-row"><div class="step-dot todo">4</div><div class="step-label">Confirm</div></div>
+            <div class="enroll-form">
+              <div class="form-field"></div>
+              <div class="form-field" style="width:60%"></div>
+              <div class="enroll-btn">Pay & Enroll</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="section-label">
+      <h2>Overview</h2>
+      <div class="line"></div>
+      <span class="tag">The Problem</span>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="ov-icon">🔍</div>
+        <h4>Discovery Gap</h4>
+        <p>Parents struggle to find quality after-school activities for their children. Information is scattered across websites, flyers, and word of mouth.</p>
+      </div>
+      <div class="overview-card">
+        <div class="ov-icon">📋</div>
+        <h4>Enrollment Friction</h4>
+        <p>Signing up for activities is often manual and time-consuming, involving phone calls, paper forms, and back-and-forth communication.</p>
+      </div>
+      <div class="overview-card">
+        <div class="ov-icon">📊</div>
+        <h4>Provider Visibility</h4>
+        <p>Activity providers lack a central platform to manage enrollments, communicate with families, and grow their programs effectively.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- User Flow -->
+  <section class="section">
+    <div class="section-label">
+      <h2>User Flow</h2>
+      <div class="line"></div>
+      <span class="tag">Block Diagram</span>
+    </div>
+    <div class="flow-container">
+      <div class="flow-diagram">
+
+        <!-- Auth -->
+        <div class="flow-col">
+          <div class="flow-col-title">Auth</div>
+          <div class="flow-node pink-node">Sign In</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Register</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node" style="font-size:9px;color:#555">Lost Password</div>
+        </div>
+
+        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-connector"></div>
+
+        <!-- Browse -->
+        <div class="flow-col">
+          <div class="flow-col-title">Discover</div>
+          <div class="flow-node pink-node">Activity Feed</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Search & Filter</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Activity Detail</div>
+        </div>
+
+        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-connector"></div>
+
+        <!-- Enroll flow -->
+        <div class="flow-col">
+          <div class="flow-col-title">Enroll</div>
+          <div class="flow-node pink-node">Select Slot</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Child Details</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Payment</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node diamond" style="width:80px;height:56px;clip-path:none;border:1px solid #444;border-radius:8px;background:rgba(255,200,0,0.07);font-size:9px;color:#f0c040;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px">Approved?</div>
+        </div>
+
+        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-connector"></div>
+
+        <!-- Post -->
+        <div class="flow-col">
+          <div class="flow-col-title">Post-Enroll</div>
+          <div class="flow-node pink-node">Confirmation</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">My Activities</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Messages</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node" style="font-size:9px;color:#555">Notifications</div>
+        </div>
+
+        <div class="flow-connector"></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-connector"></div>
+
+        <!-- Provider -->
+        <div class="flow-col">
+          <div class="flow-col-title">Provider</div>
+          <div class="flow-node pink-node">Dashboard</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Manage Listings</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Enrollments</div>
+          <div style="height:6px;width:1px;background:#333"></div>
+          <div class="flow-node">Analytics</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Wireframes -->
+  <section class="section">
+    <div class="section-label">
+      <h2>Wireframes</h2>
+      <div class="line"></div>
+      <span class="tag">All Screens</span>
+    </div>
+
+    <!-- Featured 4 -->
+    <div class="wireframes-grid">
+      <!-- Onboarding -->
+      <div class="wireframe-thumb">
+        <div class="wireframe-inner">
+          <div class="wf-bar" style="height:8px;width:40%;border-radius:4px;margin:0 auto 8px"></div>
+          <div class="wf-bar" style="height:60px;width:60%;border-radius:50%;margin:0 auto;background:#1a1a1a"></div>
+          <div class="wf-bar" style="height:10px;width:70%;margin:8px auto 0"></div>
+          <div class="wf-bar" style="height:6px;width:55%;margin:6px auto 0"></div>
+          <div style="flex:1"></div>
+          <div class="wf-bar" style="height:28px;background:rgba(255,45,120,0.2);border-radius:14px"></div>
+          <div class="wf-bar" style="height:14px;width:50%;margin:6px auto 0;background:#1a1a1a"></div>
+        </div>
+        <div class="wf-label">Onboarding</div>
+      </div>
+
+      <!-- Discovery -->
+      <div class="wireframe-thumb">
+        <div class="wireframe-inner">
+          <div class="wf-bar" style="height:22px;border-radius:8px"></div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:4px">
+            <div class="wf-bar" style="height:14px;width:40%;border-radius:8px;background:rgba(255,45,120,0.2)"></div>
+            <div class="wf-bar" style="height:14px;width:30%;border-radius:8px"></div>
+            <div class="wf-bar" style="height:14px;width:25%;border-radius:8px"></div>
+          </div>
+          <div class="wf-bar" style="height:40px;border-radius:10px;margin-top:6px"></div>
+          <div class="wf-bar" style="height:40px;border-radius:10px"></div>
+          <div class="wf-bar" style="height:40px;border-radius:10px"></div>
+          <div class="wf-bar tall" style="border-radius:10px"></div>
+        </div>
+        <div class="wf-label">Activity Discovery</div>
+      </div>
+
+      <!-- Enrollment -->
+      <div class="wireframe-thumb">
+        <div class="wireframe-inner">
+          <div class="wf-bar" style="height:8px;width:80%"></div>
+          <div style="display:flex;align-items:center;gap:5px;margin:6px 0">
+            <div class="wf-bar" style="height:16px;width:16px;border-radius:50%;background:rgba(255,45,120,0.3);flex-shrink:0"></div>
+            <div class="wf-bar" style="height:6px;flex:1"></div>
+            <div class="wf-bar" style="height:16px;width:16px;border-radius:50%;flex-shrink:0"></div>
+            <div class="wf-bar" style="height:6px;flex:1"></div>
+            <div class="wf-bar" style="height:16px;width:16px;border-radius:50%;flex-shrink:0"></div>
+          </div>
+          <div class="wf-bar tall" style="border-radius:10px"></div>
+          <div class="wf-bar" style="height:20px;border-radius:6px;width:80%"></div>
+          <div class="wf-bar" style="height:26px;border-radius:14px;background:rgba(255,45,120,0.2)"></div>
+        </div>
+        <div class="wf-label">Enrollment Flow</div>
+      </div>
+
+      <!-- Provider Dashboard -->
+      <div class="wireframe-thumb">
+        <div class="wireframe-inner">
+          <div class="wf-bar" style="height:8px;width:60%"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px">
+            <div class="wf-bar" style="height:32px;border-radius:8px;background:rgba(255,45,120,0.15)"></div>
+            <div class="wf-bar" style="height:32px;border-radius:8px"></div>
+            <div class="wf-bar" style="height:32px;border-radius:8px"></div>
+            <div class="wf-bar" style="height:32px;border-radius:8px"></div>
+          </div>
+          <div class="wf-bar" style="height:50px;border-radius:10px;margin-top:5px"></div>
+          <div class="wf-bar tall" style="border-radius:10px"></div>
+        </div>
+        <div class="wf-label">Provider Dashboard</div>
+      </div>
+    </div>
+
+    <!-- Smaller wireframe grid (like the big overview in the screenshots) -->
+    <div class="wireframes-grid-small" style="margin-top:16px">
+      <!-- Generate 12 mini wireframe thumbnails with varied content -->
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar accent"></div><div class="wf-sm-bar dark"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar"></div><div class="wf-sm-bar dark"></div><div class="wf-sm-bar accent"></div><div class="wf-sm-bar"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar accent" style="width:60%;margin:0 auto"></div><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar accent"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar accent"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar"></div><div class="wf-sm-bar accent"></div><div class="wf-sm-bar dark" style="flex:1"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar accent" style="width:40%;"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar dark" style="height:20px"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar accent"></div><div class="wf-sm-bar dark" style="flex:1"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar"></div><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar accent"></div><div class="wf-sm-bar"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar accent"></div><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar accent"></div><div class="wf-sm-bar dark" style="flex:1"></div></div>
+      <div class="wireframe-thumb-sm"><div class="wf-sm-bar dark" style="flex:1"></div><div class="wf-sm-bar accent"></div><div class="wf-sm-bar"></div><div class="wf-sm-bar"></div></div>
+    </div>
+    <p style="color:#444;font-size:11px;text-align:center;margin-top:16px;letter-spacing:1px">REPLACE WIREFRAME PLACEHOLDERS WITH ACTUAL FIGMA EXPORTS</p>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h3>See the Full Prototype</h3>
+    <p>All screens, interactions, and components live in Figma.</p>
+    <a href="#" class="figma-btn-large" target="_blank">
+      <i class="fa-brands fa-figma"></i> Open Figma File
+    </a>
+    <a href="figma-projects.html" class="figma-btn-outline">
+      <i class="fa-solid fa-arrow-left"></i> Back to Projects
+    </a>
+  </div>
+
+</body>
+</html>
