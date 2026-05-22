@@ -26,7 +26,7 @@
       line-height: 1.7;
     }
 
-    /* ── Nav ── */
+    /* Nav */
     .top-nav {
       padding: 24px 6%;
       display: flex;
@@ -53,9 +53,9 @@
     }
     .back-btn:hover { color: var(--pink); }
 
-    /* ── Shared layout ── */
+    /* Shared layout */
     .section {
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 80px 6%;
     }
@@ -79,9 +79,9 @@
       background: var(--border);
     }
 
-    /* ── Hero ── */
+    /* Hero */
     .hero {
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 90px 6% 60px;
     }
@@ -129,7 +129,7 @@
     .meta-item .meta-label { color: #555; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
     .meta-item .meta-value { color: white; font-size: 14px; font-weight: 600; }
 
-    /* ── Overview ── */
+    /* Overview */
     .overview-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -153,175 +153,132 @@
     .overview-card h4 { color: white; font-size: 14px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; }
     .overview-card p { color: var(--text-muted); font-size: 13px; line-height: 1.75; }
 
-    /* ── User flow ── */
-    .flow-wrap {
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-top: 8px;
-    }
-    .flow {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      min-width: 600px;
-    }
-    .flow-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-    }
-    .flow-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 10px;
-      text-align: center;
+    /* Diagram images */
+    .diagram-img {
       width: 100%;
-    }
-    .flow-box i { color: var(--pink); font-size: 18px; display: block; margin-bottom: 8px; }
-    .flow-box span { color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; display: block; }
-    .flow-box small { color: var(--text-muted); font-size: 10px; display: block; margin-top: 4px; }
-    .flow-arrow {
-      color: #333;
-      font-size: 18px;
-      flex-shrink: 0;
-      padding: 0 6px;
-      margin-bottom: 28px;
-    }
-    .flow-label {
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #444;
-      margin-top: 4px;
-    }
-
-    /* ── IA ── */
-    .ia-tree {
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .ia-row { display: flex; align-items: flex-start; gap: 12px; }
-    .ia-parent {
-      background: var(--card-bg);
+      border-radius: 14px;
       border: 1px solid var(--border);
-      border-left: 3px solid var(--pink);
-      border-radius: 10px;
-      padding: 12px 18px;
-      min-width: 160px;
-      color: white;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      flex-shrink: 0;
-    }
-    .ia-children {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding-top: 12px;
-    }
-    .ia-child {
-      background: #111;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
-      padding: 7px 14px;
-      color: var(--text-muted);
-      font-size: 12px;
-      font-weight: 500;
+      display: block;
+      margin-top: 8px;
     }
 
-    /* ── Wireframe placeholders ── */
-    .wireframe-grid {
+    /* Mobile Wireframes — row of portrait frames */
+    .wireframe-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
       margin-top: 8px;
     }
     .wf-frame {
       background: var(--card-bg);
       border: 1px dashed #333;
       border-radius: 14px;
-      aspect-ratio: 9/16;
+      aspect-ratio: 9 / 16;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+    }
+    .wf-frame:hover {
+      border-color: var(--pink);
+      transform: translateY(-4px);
+    }
+    .wf-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .wf-empty {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: border-color 0.25s, transform 0.25s;
-      overflow: hidden;
-      position: relative;
+      height: 100%;
+      gap: 8px;
+      color: #3a3a3a;
+      transition: color 0.25s;
     }
-    .wf-frame:hover { border-color: var(--pink); transform: translateY(-4px); }
-    .wf-frame img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-    .wf-inner {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 10px;
-      color: #3a3a3a; transition: color 0.25s;
-      position: relative; z-index: 1;
+    .wf-frame:hover .wf-empty { color: var(--pink); }
+    .wf-empty i { font-size: 20px; }
+    .wf-empty span {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      padding: 0 8px;
     }
-    .wf-frame:hover .wf-inner { color: var(--pink); }
-    .wf-inner i { font-size: 22px; }
-    .wf-inner span { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; text-align: center; padding: 0 12px; }
+    .wf-label {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #444;
+      margin-top: 8px;
+    }
 
-    /* ── Visual design — colors ── */
-    .color-row {
-      display: flex;
-      flex-wrap: wrap;
+    /* Wide screen wireframes — landscape frames */
+    .widescreen-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
       margin-top: 8px;
     }
-    .color-swatch {
+    .ws-frame {
+      background: var(--card-bg);
+      border: 1px dashed #333;
+      border-radius: 14px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+    }
+    .ws-frame:hover {
+      border-color: var(--pink);
+      transform: translateY(-4px);
+    }
+    .ws-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ws-empty {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      height: 100%;
       gap: 10px;
+      color: #3a3a3a;
+      transition: color 0.25s;
     }
-    .swatch-box {
-      width: 80px; height: 80px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
+    .ws-frame:hover .ws-empty { color: var(--pink); }
+    .ws-empty i { font-size: 24px; }
+    .ws-empty span {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
     }
-    .swatch-info { text-align: center; }
-    .swatch-name { color: white; font-size: 12px; font-weight: 600; display: block; }
-    .swatch-hex { color: #555; font-size: 11px; font-family: monospace; }
-    /* placeholder swatches — update hex values and labels when you have the real ones */
-    .sw-1 { background: #ADD YOUR COLOR; } /* e.g. Primary */
-    .sw-2 { background: #ADD YOUR COLOR; } /* e.g. Secondary */
-    .sw-3 { background: #ADD YOUR COLOR; } /* e.g. Accent */
-    .sw-4 { background: #ADD YOUR COLOR; } /* e.g. Background */
-    .sw-5 { background: #ADD YOUR COLOR; } /* e.g. Text */
-
-    /* ── Typography ── */
-    .type-row {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    /* 5th wide frame spans full width */
+    .ws-frame.full-width {
+      grid-column: 1 / -1;
+      aspect-ratio: 21 / 9;
+    }
+    .ws-label {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #444;
       margin-top: 8px;
     }
-    .type-item {
-      display: flex;
-      align-items: baseline;
-      gap: 24px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .type-item:last-child { border-bottom: none; }
-    .type-meta { min-width: 130px; flex-shrink: 0; }
-    .type-meta .t-role { color: var(--text-muted); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
-    .type-meta .t-spec { color: #444; font-size: 11px; margin-top: 4px; }
-    .type-sample { color: white; }
-    .t-h1 { font-size: 40px; font-weight: 700; letter-spacing: -1px; }
-    .t-h2 { font-size: 26px; font-weight: 600; }
-    .t-body { font-size: 16px; font-weight: 400; color: var(--text-muted); }
-    .t-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--pink); }
 
-    /* ── Prototype CTA ── */
+    /* Prototype CTA */
     .cta-wrap {
       text-align: center;
       padding: 80px 6%;
@@ -347,7 +304,7 @@
     }
     .figma-btn:hover { background: rgba(255,45,120,0.08); }
 
-    /* ── Lightbox ── */
+    /* Lightbox */
     .lightbox {
       display: none;
       position: fixed;
@@ -366,13 +323,15 @@
     }
     .lightbox-close:hover { opacity: 1; }
 
-    /* ── Responsive ── */
+    /* Responsive */
+    @media (max-width: 900px) {
+      .wireframe-row { grid-template-columns: repeat(3, 1fr); }
+      .widescreen-grid { grid-template-columns: 1fr; }
+      .ws-frame.full-width { aspect-ratio: 16 / 9; }
+    }
     @media (max-width: 640px) {
       .overview-grid { grid-template-columns: 1fr; }
-      .wireframe-grid { grid-template-columns: 1fr 1fr; }
-      .flow { min-width: 500px; }
-      .ia-row { flex-direction: column; }
-      .type-item { flex-direction: column; gap: 8px; }
+      .wireframe-row { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -384,7 +343,7 @@
     <a href="FigmaProject.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Projects</a>
   </nav>
 
-  <!-- ── HERO ── -->
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-tags">
       <span class="tag-pill">UI/UX Design</span>
@@ -416,7 +375,7 @@
     </div>
   </div>
 
-  <!-- ── OVERVIEW ── -->
+  <!-- OVERVIEW -->
   <div class="section">
     <div class="section-label">Overview</div>
     <div class="overview-grid">
@@ -443,125 +402,145 @@
     </div>
   </div>
 
-  <!-- ── USER FLOW ── -->
+  <!-- USER FLOW -->
   <div class="section">
     <div class="section-label">User Flow</div>
-    <p style="color:var(--text-muted); font-size:14px; margin-bottom:28px;">The parent-side journey from landing on the app to completing an enrollment.</p>
-   <img src="Userflows.png" alt="Userflow Diagram"> 
-    
-    <!-- <div class="flow-wrap">
-      <div class="flow">
-
-        <div class="flow-step">
-          <div class="flow-box">
-            <i class="fa-solid fa-door-open"></i>
-            <span>Onboarding</span>
-            <small>Sign up / Log in</small>
-          </div>
-          <span class="flow-label">Start</span>
-        </div>
-
-        <span class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-
-        <div class="flow-step">
-          <div class="flow-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span>Discover</span>
-            <small>Browse activities</small>
-          </div>
-          <span class="flow-label">Explore</span>
-        </div>
-
-        <span class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-
-        <div class="flow-step">
-          <div class="flow-box">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>View Details</span>
-            <small>Provider info & schedule</small>
-          </div>
-          <span class="flow-label">Review</span>
-        </div>
-
-        <span class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-
-        <div class="flow-step">
-          <div class="flow-box">
-            <i class="fa-solid fa-calendar-plus"></i>
-            <span>Enroll</span>
-            <small>Select slot & pay</small>
-          </div>
-          <span class="flow-label">Action</span>
-        </div>
-
-        <span class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-
-        <div class="flow-step">
-          <div class="flow-box">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>Confirmed</span>
-            <small>Manage bookings</small>
-          </div>
-          <span class="flow-label">Done</span>
-        </div>
-       
-      </div>
-    </div> -->
+    <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">The parent-side journey from landing on the app to completing an enrollment.</p>
+    <img src="Userflows.png" alt="User Flow Diagram" class="diagram-img">
   </div>
 
-  <!-- ── INFORMATION ARCHITECTURE ── -->
+  <!-- INFORMATION ARCHITECTURE -->
   <div class="section">
     <div class="section-label">Information Architecture</div>
-    <p style="color:var(--text-muted); font-size:14px; margin-bottom:28px;">Key sections of the app and what lives inside each one.</p>
-    <img src="InformationArchitechture.png" alt="I.A Diagram"> 
+    <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Key sections of the app and what lives inside each one.</p>
+    <img src="InformationArchitechture.png" alt="Information Architecture Diagram" class="diagram-img">
   </div>
 
-  <!-- ── WIREFRAMES ── -->
+  <!-- MOBILE WIREFRAMES -->
   <div class="section">
-    <div class="section-label">Key Wireframes</div>
-    <p style="color:var(--text-muted); font-size:14px; margin-bottom:28px;">Click any frame to enlarge.</p>
-    <div class="wireframe-grid">
-      <div class="wf-frame" onclick="openLightbox(this)">
-       <img src="activitybridge.png" alt="Onboarding"> 
+    <div class="section-label">Mobile Wireframes</div>
+    <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Key screens from the mobile experience. Click any frame to enlarge.</p>
+
+    <div class="wireframe-row">
+
+      <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="splashscreen1.png" alt="Splash Screen">
+        </div>
+        <p class="wf-label">Splash</p>
       </div>
-    </div>
-     <div class="wireframe-grid">
-      <div class="wf-frame" onclick="openLightbox(this)">
-       <img src="loginscreen.png" alt="Onboarding"> 
+
+        <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="splashscreen2.png" alt="Splash Screen">
+        </div>
+        <p class="wf-label">Splash</p>
       </div>
-    </div>
-    <div class="wireframe-grid">
-      <div class="wf-frame" onclick="openLightbox(this)">
-       <img src="homescreen.png" alt="Onboarding"> 
+      
+      <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="loginscreen.png" alt="Login Screen">
+        </div>
+        <p class="wf-label">Login</p>
       </div>
-    </div>
-    <div class="wireframe-grid">
-      <div class="wf-frame" onclick="openLightbox(this)">
-       <img src="profilestudio.png" alt="Onboarding"> 
+
+      <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="homescreen.png" alt="Home Screen">
+        </div>
+        <p class="wf-label">Home</p>
       </div>
-    </div>
-     <div class="wireframe-grid">
-      <div class="wf-frame" onclick="openLightbox(this)">
-       <img src="businessscreen.png" alt="Onboarding"> 
+
+      <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="profilestudio.png" alt="Profile / Studio">
+        </div>
+        <p class="wf-label">Profile</p>
       </div>
-    </div>
-     <div class="wireframe-grid">
-      <div class="wf-frame" onclick="openLightbox(this)">
-       <img src="paymentscreen.png" alt="Onboarding"> 
+
+      <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="businessscreen.png" alt="Business Screen">
+        </div>
+        <p class="wf-label">Business</p>
       </div>
+
+      <div>
+        <div class="wf-frame" onclick="openLightbox(this)">
+          <img src="paymentscreen.png" alt="Payment Screen">
+        </div>
+        <p class="wf-label">Payment</p>
+      </div>
+
     </div>
   </div>
 
+  <!-- WIDE SCREEN WIREFRAMES -->
+  <div class="section">
+    <div class="section-label">Wide Screen Wireframes</div>
+    <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Desktop and web views of the platform. Click any frame to enlarge.</p>
 
+    <div class="widescreen-grid">
 
+      <div>
+        <div class="ws-frame" onclick="openLightbox(this)">
+      <img src="splashscreens.png" alt="Dashboard">
+        </div>
+        <p class="ws-label">Dashboard</p>
+      </div>
 
+     <div>
+        <div class="ws-frame" onclick="openLightbox(this)">
+      <img src="activityscreeens.png" alt="Dashboard">
+        </div>
+        <p class="ws-label">Dashboard</p>
+      </div>
 
+      <div>
+        <div class="ws-frame" onclick="openLightbox(this)">
+          <div class="ws-empty">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Activity Detail</span>
+          </div>
+        </div>
+        <p class="ws-label">Activity Detail</p>
+      </div>
 
+      <div>
+        <div class="ws-frame" onclick="openLightbox(this)">
+          <div class="ws-empty">
+            <i class="fa-solid fa-user-gear"></i>
+            <span>Provider Portal</span>
+          </div>
+        </div>
+        <p class="ws-label">Provider Portal</p>
+      </div>
+
+      <div>
+        <div class="ws-frame full-width" onclick="openLightbox(this)">
+          <div class="ws-empty">
+            <i class="fa-solid fa-chart-bar"></i>
+            <span>Analytics Overview</span>
+          </div>
+        </div>
+        <p class="ws-label">Analytics</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-inner">
+      <span class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></span>
+      <img id="lightbox-img" src="" alt="Enlarged wireframe">
+    </div>
+  </div>
 
   <script>
     function openLightbox(frame) {
       const img = frame.querySelector('img');
-      if (!img) return; /* placeholder — no image yet */
+      if (!img) return;
       document.getElementById('lightbox-img').src = img.src;
       document.getElementById('lightbox').classList.add('active');
     }
