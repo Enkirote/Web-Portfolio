@@ -135,7 +135,6 @@
     }
     .mockup-frame:hover {
       transform: translateY(-5px);
-
     }
 
     /* Caption label on each mockup */
@@ -161,6 +160,67 @@
       transition: transform 0.4s;
     }
     .mockup-frame:hover img { transform: scale(1.02); }
+
+    /* ── User Flows Section ── */
+    .user-flows {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 0 4%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .flow-frame {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+      position: relative;
+      aspect-ratio: 16 / 9;
+    }
+    .flow-frame:hover {
+      transform: translateY(-5px);
+    }
+
+    .flow-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .flow-frame:hover img { transform: scale(1.02); }
+
+    /* ── Flow Link Section ── */
+    .flow-link-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 4%;
+      text-align: center;
+    }
+
+    .flow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border: 1px solid rgba(255,45,120,0.5);
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    .flow-link:hover {
+      background: rgba(255,45,120,0.1);
+      border-color: var(--pink);
+      transform: translateY(-2px);
+    }
 
     /* ── Lightbox ── */
     .lightbox {
@@ -211,7 +271,13 @@
       <li>Created the About page to clearly communicate the library's mission, using user-centered design principles to improve readability and engagement.</li>
     </ul>
   </section>
-
+  
+ <div class="flow-link-section">
+    <p style="color: #888; font-size: 14px; margin-bottom: 16px;">View more details</p>
+    <a href="https://library.kemu.ac.ke/" class="flow-link">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> See the Live Project
+    </a>
+  </div>
   <!-- Mockup images -->
   <div class="mockups">
     <div class="mockup-frame" onclick="openLightbox(this)">
@@ -231,6 +297,23 @@
       <img src="kemulibraryfooter.png" alt="Footer" />
     </div>
   </div>
+
+  <!-- User Flows Section -->
+  <section class="desc-section" style="margin-top: 80px; margin-bottom: 0;">
+    <h2 style="color: white; font-size: 28px; font-weight: 700; margin-bottom: 40px; text-align: center;">User Flows</h2>
+    <div class="user-flows">
+      <div class="flow-frame" onclick="openLightbox(this)">
+        <span class="mockup-label">User Flow 1</span>
+        <img src="userflow1.png" alt="User Flow 1" />
+      </div>
+      <div class="flow-frame" onclick="openLightbox(this)">
+        <span class="mockup-label">User Flow 2</span>
+        <img src="userflow2.png" alt="User Flow 2" />
+      </div>
+    </div>
+  </section>
+
+
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
