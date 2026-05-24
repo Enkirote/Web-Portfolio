@@ -162,6 +162,20 @@
       margin-top: 8px;
     }
 
+    /* Two user flow images side by side */
+    .userflow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .userflow-grid img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
     /* Mobile Wireframes — row of portrait frames */
     .wireframe-row {
       display: grid;
@@ -175,39 +189,13 @@
       border-radius: 14px;
       aspect-ratio: 9 / 16;
       overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.25s, transform 0.25s;
       position: relative;
-    }
-    .wf-frame:hover {
-      border-color: var(--pink);
-      transform: translateY(-4px);
     }
     .wf-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-    .wf-empty {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      gap: 8px;
-      color: #3a3a3a;
-      transition: color 0.25s;
-    }
-    .wf-frame:hover .wf-empty { color: var(--pink); }
-    .wf-empty i { font-size: 20px; }
-    .wf-empty span {
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 600;
-      text-align: center;
-      padding: 0 8px;
     }
     .wf-label {
       text-align: center;
@@ -231,13 +219,7 @@
       border-radius: 14px;
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.25s, transform 0.25s;
       position: relative;
-    }
-    .ws-frame:hover {
-      border-color: var(--pink);
-      transform: translateY(-4px);
     }
     .ws-frame img {
       width: 100%;
@@ -245,26 +227,6 @@
       object-fit: cover;
       display: block;
     }
-    .ws-empty {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      gap: 10px;
-      color: #3a3a3a;
-      transition: color 0.25s;
-    }
-    .ws-frame:hover .ws-empty { color: var(--pink); }
-    .ws-empty i { font-size: 24px; }
-    .ws-empty span {
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 600;
-      text-align: center;
-    }
-    /* 5th wide frame spans full width */
     .ws-frame.full-width {
       grid-column: 1 / -1;
       aspect-ratio: 21 / 9;
@@ -304,30 +266,12 @@
     }
     .figma-btn:hover { background: rgba(255,45,120,0.08); }
 
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.93);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox.active { display: flex; }
-    .lightbox-inner { position: relative; max-width: 92vw; max-height: 90vh; }
-    .lightbox-inner img { width: 100%; height: auto; max-height: 88vh; object-fit: contain; border-radius: 12px; }
-    .lightbox-close {
-      position: absolute; top: -40px; right: 0;
-      color: white; font-size: 28px; cursor: pointer; opacity: 0.7; transition: opacity 0.2s;
-    }
-    .lightbox-close:hover { opacity: 1; }
-
     /* Responsive */
     @media (max-width: 900px) {
       .wireframe-row { grid-template-columns: repeat(3, 1fr); }
       .widescreen-grid { grid-template-columns: 1fr; }
       .ws-frame.full-width { aspect-ratio: 16 / 9; }
+      .userflow-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .overview-grid { grid-template-columns: 1fr; }
@@ -406,7 +350,10 @@
   <div class="section">
     <div class="section-label">User Flow</div>
     <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">The parent-side journey from landing on the app to completing an enrollment.</p>
-    <img src="Userflows.png" alt="User Flow Diagram" class="diagram-img">
+    <div class="userflow-grid">
+      <img src="UserflowA.png" alt="User Flow Diagram 1">
+      <img src="UserflowB.png" alt="User Flow Diagram 2">
+    </div>
   </div>
 
   <!-- INFORMATION ARCHITECTURE -->
@@ -419,94 +366,68 @@
   <!-- MOBILE WIREFRAMES -->
   <div class="section">
     <div class="section-label">Mobile Wireframes</div>
-    <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Key screens from the mobile experience. Click any frame to enlarge.</p>
+    <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Key screens from the mobile experience.</p>
 
     <div class="wireframe-row">
 
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
+        <div class="wf-frame">
           <img src="splashscreen1.png" alt="Splash Screen">
         </div>
         <p class="wf-label">Splash</p>
       </div>
 
-        <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
+      <div>
+        <div class="wf-frame">
           <img src="splashscreen2.png" alt="Splash Screen">
         </div>
         <p class="wf-label">Splash</p>
       </div>
-      
+
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
+        <div class="wf-frame">
           <img src="loginscreen.png" alt="Login Screen">
         </div>
         <p class="wf-label">Login</p>
       </div>
 
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
+        <div class="wf-frame">
           <img src="homescreen.png" alt="Home Screen">
         </div>
         <p class="wf-label">Home</p>
       </div>
 
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
-          <img src="profilestudio.png" alt="Profile / Studio">
+        <div class="wf-frame">
+          <img src="profilescreen.png" alt="Profile / Studio">
         </div>
         <p class="wf-label">Profile</p>
       </div>
 
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
+        <div class="wf-frame">
           <img src="businessscreen.png" alt="Business Screen">
         </div>
         <p class="wf-label">Business</p>
       </div>
 
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
+        <div class="wf-frame">
           <img src="activityscreen.png" alt="Activity Screen">
         </div>
         <p class="wf-label">Activity</p>
       </div>
 
       <div>
-        <div class="wf-frame" onclick="openLightbox(this)">
-          <img src="programscreen.png" alt="Activity Screen">
+        <div class="wf-frame">
+          <img src="paymentscreen.png" alt="Payment Screen">
         </div>
-        <p class="wf-label">Program</p>
+        <p class="wf-label">Payment</p>
       </div>
 
-    
-
     </div>
   </div>
-
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-    <div class="lightbox-inner">
-      <span class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></span>
-      <img id="lightbox-img" src="" alt="Enlarged wireframe">
-    </div>
-  </div>
-
-  <script>
-    function openLightbox(frame) {
-      const img = frame.querySelector('img');
-      if (!img) return;
-      document.getElementById('lightbox-img').src = img.src;
-      document.getElementById('lightbox').classList.add('active');
-    }
-    function closeLightbox(e) {
-      if (!e || e.target === document.getElementById('lightbox')) {
-        document.getElementById('lightbox').classList.remove('active');
-      }
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-  </script>
 
 </body>
 </html>
